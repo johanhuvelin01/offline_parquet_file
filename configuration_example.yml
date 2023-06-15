@@ -1,0 +1,17 @@
+input:
+  buckets:
+    - bucket:
+      url: "S3://blablablabla1"
+        tables:
+          - table1
+          - table2
+          - table3
+    - bucket:
+      url: "S3://blablablabla2"
+        tables:
+          - table1
+          - table2
+          - table3
+output:
+  folder: '/home/Documents/whynot'
+  duckdb_name: 'super_duckdb_database.db'
