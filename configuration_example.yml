@@ -1,17 +1,25 @@
 input:
+  params:
+    sample:
+      nb_month_to_sample: 2
+      size_max_to_sample: 5
   buckets:
-    - bucket:
-      url: "S3://blablablabla1"
-        tables:
-          - table1
-          - table2
-          - table3
-    - bucket:
-      url: "S3://blablablabla2"
-        tables:
-          - table1
-          - table2
-          - table3
+    - name: "decathlon-cds"
+      tables:
+        - cds_parquet/perfeco/f_transaction_detail
+        - cds_parquet/supply/d_hierarchy_supply
+        - cds_parquet/masterdata/d_business_unit
+        - cds_parquet/masterdata/d_sku
+        - cds_parquet/geomarketing/d_currency
+        - cds_parquet/masterdata/d_day
+        - cds_parquet/perfeco/f_delivery_detail
+        - cds_parquet/finance/mtf_exchange_rate
+        - cds_parquet/masterdata/supply_plant
+        - cds_parquet/product/d_sales_data_material_h
+        - cds_parquet/masterdata/d_week
+    - name: "prd-dct-dlk-gold"
+      tables:
+        - stock/f_availability_rate
+        - price/f_masterprice_dkt
 output:
-  folder: '/home/Documents/whynot'
-  duckdb_name: 'super_duckdb_database.db'
+  folder: '/Users/mac-JHUVEL01/Documents/local_data'
