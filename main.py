@@ -179,17 +179,14 @@ def main():
                     parquet_file = filter_bucket_object(bucket_object)
                     last_parquet = find_last_parquet(parquet_file)
                     size_giga_sampling = calculate_bucket_size([last_parquet])
-                    if size_giga_sampling < conf["input"]["params"]["sample"]["size_max_to_sample"]:
-                        save_data(data_object=[last_parquet], conf=conf, s3_co=s3_co, my_bucket=my_bucket)
-                    else:
-                        bucket_object.sort(key=lambda x: x.last_modified, reverse=True)
-                        sampling_data = []
-                        i = 0
-                        while calculate_bucket_size(sampling_data) < conf["input"]["params"]["sample"]["size_max_to_sample"]:
-                            sampling_data = sampling_data + [bucket_object[i]]
-                            i += 1
-                        save_data(data_object=sampling_data, conf=conf, s3_co=s3_co, my_bucket=my_bucket)
-                        print(f'Sampling until max')
+                    bucket_object.sort(key=lambda x: x.last_modified, reverse=True)
+                    sampling_data = []
+                    i = 0
+                    while calculate_bucket_size(sampling_data) < conf["input"]["params"]["sample"]["size_max_to_sample"]:
+                        sampling_data = sampling_data + [bucket_object[i]]
+                        i += 1
+                    save_data(data_object=sampling_data, conf=conf, s3_co=s3_co, my_bucket=my_bucket)
+                    print(f'Sampling until max')
             else:
                 save_data(data_object=bucket_object, conf=conf, s3_co=s3_co, my_bucket=my_bucket)
     return
